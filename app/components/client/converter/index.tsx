@@ -22,7 +22,12 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
 
   const [formatRatesFrom, setformatRatesFrom] = useState<Currency[]>(euroRates);
   const [formatRatesTo, setformatRatesTo] = useState<Currency[]>(euroRates);
-  
+
+  const [inputCurrencyFrom, setInputCurrencyFrom] = useState<number>(1);
+  const [inputCurrencyTo, setInputCurrencyTo] = useState<number>(
+    currencyTo.rate / currencyFrom.rate
+  );
+
   useEffect(() => {
     const formatRatesFrom = removeSelectedRate(currencyTo.currency);
     const formatRatesTo = removeSelectedRate(currencyFrom.currency);
@@ -43,6 +48,30 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
           : (currencyTo.rate / currencyFrom.rate).toFixed(2)}{" "}
         {currencyTo.currency}
       </p>
+      <div>
+        {currencyFrom.currency}:{" "}
+        <input
+          type="number"
+          name="from"
+          defaultValue={inputCurrencyFrom}
+          onChange={(e) => {
+            const result =
+              Number(e.target.value) *
+              Number(currencyTo.rate / currencyFrom.rate);
+            setInputCurrencyTo(result);
+          }}
+        />
+        {currencyTo.currency}:{" "}
+        <input
+          type="number"
+          name="to"
+          defaultValue={inputCurrencyTo}
+          onChange={(e) => {
+            const result = Number(e.target.value) / inputCurrencyTo;
+            setInputCurrencyFrom(result);
+          }}
+        />
+      </div>
       <select
         onChange={(e) => {
           const value = e.target.value;
