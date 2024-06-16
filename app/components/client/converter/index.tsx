@@ -8,6 +8,11 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
     return result;
   };
 
+  const removeSelectedRate = (currency: string) => {
+    const result = euroRates.filter((obj) => obj.currency !== currency);
+    return result;
+  };
+
   const initCurrencyTo: Currency = {
     currency: "Euro",
     rate: 1,
@@ -17,6 +22,13 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
 
   const [formatRatesFrom, setformatRatesFrom] = useState<Currency[]>(euroRates);
   const [formatRatesTo, setformatRatesTo] = useState<Currency[]>(euroRates);
+
+  useEffect(() => {
+    const formatRatesFrom = removeSelectedRate(currencyTo.currency);
+    const formatRatesTo = removeSelectedRate(currencyFrom.currency);
+    setformatRatesTo(formatRatesTo);
+    setformatRatesFrom(formatRatesFrom);
+  }, [currencyFrom, currencyTo]);
 
   return (
     <div>
@@ -43,7 +55,7 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
           const value = e.target.value;
           const result = getObjByCurrency(value);
           if (result) setCurrencyTo(result);
-        }}
+         }}
       >
         <option>Euro</option>
         {formatRatesTo?.length > 0 &&
