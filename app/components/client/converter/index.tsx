@@ -58,6 +58,12 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
           ? currencyTo.rate / currencyFrom.rate
           : (currencyTo.rate / currencyFrom.rate).toFixed(2)}{" "}
         {currencyTo.currency}
+       {"   /   "}
+        1 {currencyTo.currency} ={" "}
+        {(currencyFrom.rate / currencyTo.rate).toFixed(2) === "0.00"
+          ? currencyFrom.rate / currencyTo.rate
+          : (currencyFrom.rate / currencyTo.rate).toFixed(2)}{" "}
+        {currencyFrom.currency}
       </p>
       <div>
         {currencyFrom.currency}:{" "}
