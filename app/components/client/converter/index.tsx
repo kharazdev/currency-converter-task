@@ -38,6 +38,7 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
     const result = val / (currencyTo.rate / currencyFrom.rate);
     setInputCurrencyFrom(result);
   };
+
   useEffect(() => {
     const formatRatesFrom = removeSelectedRate(currencyTo.currency);
     const formatRatesTo = removeSelectedRate(currencyFrom.currency);
@@ -81,10 +82,15 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
         />
       </div>
       <select
-        onChange={(e) => {
+        onChange={async (e) => {
           const value = e.target.value;
           const result = getObjByCurrency(value);
-          if (result) setCurrencyfrom(result);
+          if (result) {
+            await setCurrencyfrom(result);
+            const rate = currencyTo.rate / result.rate;
+            setInputCurrencyFrom(1);
+            setInputCurrencyTo(Number(rate));
+          }
         }}
       >
         {formatRatesFrom?.length > 0 &&
@@ -94,10 +100,15 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
       </select>
 
       <select
-        onChange={(e) => {
+        onChange={async (e) => {
           const value = e.target.value;
           const result = getObjByCurrency(value);
-          if (result) setCurrencyTo(result);
+          if (result) {
+            setCurrencyTo(result);
+            const rate = result.rate / currencyFrom.rate;
+            setInputCurrencyFrom(1);
+            setInputCurrencyTo(Number(rate));
+          }
         }}
       >
         <option>Euro</option>
