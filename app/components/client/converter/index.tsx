@@ -27,7 +27,17 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
   const [inputCurrencyTo, setInputCurrencyTo] = useState<number>(
     currencyTo.rate / currencyFrom.rate
   );
+  const handleChangeRateInputFrom = (val: number) => {
+    setInputCurrencyFrom(val);
+    const result = Number(val) * Number(currencyTo.rate / currencyFrom.rate);
+    setInputCurrencyTo(result);
+  };
 
+  const handleChangeRateInputTo = (val: number) => {
+    setInputCurrencyTo(val);
+    const result = val / (currencyTo.rate / currencyFrom.rate);
+    setInputCurrencyFrom(result);
+  };
   useEffect(() => {
     const formatRatesFrom = removeSelectedRate(currencyTo.currency);
     const formatRatesTo = removeSelectedRate(currencyFrom.currency);
@@ -54,11 +64,9 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
           type="number"
           name="from"
           defaultValue={inputCurrencyFrom}
+          value={inputCurrencyFrom}
           onChange={(e) => {
-            const result =
-              Number(e.target.value) *
-              Number(currencyTo.rate / currencyFrom.rate);
-            setInputCurrencyTo(result);
+            handleChangeRateInputFrom(Number(e.target.value));
           }}
         />
         {currencyTo.currency}:{" "}
@@ -66,9 +74,9 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
           type="number"
           name="to"
           defaultValue={inputCurrencyTo}
+          value={inputCurrencyTo}
           onChange={(e) => {
-            const result = Number(e.target.value) / inputCurrencyTo;
-            setInputCurrencyFrom(result);
+            handleChangeRateInputTo(Number(e.target.value));
           }}
         />
       </div>
