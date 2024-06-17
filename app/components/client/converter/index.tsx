@@ -1,7 +1,7 @@
 "use client";
 import { Currency } from "@/interfaces";
 import React, { useEffect, useState } from "react";
-
+import './style.css'
 const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
   const getObjByCurrency = (currency: string) => {
     const result = euroRates.find((obj) => obj.currency === currency);
@@ -47,7 +47,7 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
   }, [currencyFrom, currencyTo]);
 
   return (
-    <div>
+    <div className="currency-converter">
       <h1>Currency Converter</h1>
       <p>
         From {currencyFrom.currency} To {currencyTo.currency}
