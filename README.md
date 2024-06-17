@@ -18,7 +18,7 @@ Open [http://localhost:3000/api/rates](http://localhost:3000/api/rates) with you
 
 ## To Do Next
 
-- complete development handle select euro case
+- complete development handle select euro case "Done"
 - restructure converter component using atomic design methodology
 - create custom hooks
 - add jest test for all methods

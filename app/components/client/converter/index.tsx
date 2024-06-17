@@ -13,12 +13,12 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
     return result;
   };
 
-  const initCurrencyTo: Currency = {
+  const euroCurrency: Currency = {
     currency: "Euro",
     rate: 1,
   };
   const [currencyFrom, setCurrencyfrom] = useState<Currency>(euroRates[0]);
-  const [currencyTo, setCurrencyTo] = useState<Currency>(initCurrencyTo);
+  const [currencyTo, setCurrencyTo] = useState<Currency>(euroCurrency);
 
   const [formatRatesFrom, setformatRatesFrom] = useState<Currency[]>(euroRates);
   const [formatRatesTo, setformatRatesTo] = useState<Currency[]>(euroRates);
@@ -107,7 +107,8 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
       <select
         onChange={async (e) => {
           const value = e.target.value;
-          const result = getObjByCurrency(value);
+          const isEuro = e.target.value === "Euro";
+          const result = isEuro ? euroCurrency : getObjByCurrency(value);
           if (result) {
             setCurrencyTo(result);
             const rate = result.rate / currencyFrom.rate;
