@@ -1,7 +1,7 @@
 "use client";
 import { Currency } from "@/interfaces";
 import React, { useEffect, useState } from "react";
-import './style.css'
+import "./style.css";
 const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
   const getObjByCurrency = (currency: string) => {
     const result = euroRates.find((obj) => obj.currency === currency);
@@ -58,8 +58,7 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
           ? currencyTo.rate / currencyFrom.rate
           : (currencyTo.rate / currencyFrom.rate).toFixed(2)}{" "}
         {currencyTo.currency}
-       {"   /   "}
-        1 {currencyTo.currency} ={" "}
+        {"    /   "}1 {currencyTo.currency} ={" "}
         {(currencyFrom.rate / currencyTo.rate).toFixed(2) === "0.00"
           ? currencyFrom.rate / currencyTo.rate
           : (currencyFrom.rate / currencyTo.rate).toFixed(2)}{" "}
@@ -104,7 +103,7 @@ const Converter = ({ euroRates }: { euroRates: Currency[] }) => {
             <option key={x.currency}>{x.currency}</option>
           ))}
       </select>
-
+      {" -- "}
       <select
         onChange={async (e) => {
           const value = e.target.value;
